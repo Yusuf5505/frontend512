@@ -1,0 +1,14 @@
+button{
+    margin-top: 10px;
+}
+
+form{
+    text-align: center;
+}
+label input{
+    margin-bottom: 10px;
+}
+
+legend p{
+    font-weight: bold;
+}

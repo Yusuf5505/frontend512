@@ -1,0 +1,32 @@
+.conteiner{
+    border: 1pt solid;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+.conteiner .images{
+    text-align: center;
+}
+.conteiner  .in{
+    text-align: center;
+}
+
+.conteiner button{
+    text-align: center;
+}
+
+.images img{
+    padding: 5px;
+    margin-top: 50px;
+     border: 1pt solid;
+     margin-right: 10px;
+}
+
+input{
+    margin-top: 10px;
+}
+.conteiner button{
+      margin-top: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+}

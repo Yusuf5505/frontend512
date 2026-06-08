@@ -1,0 +1,18 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2{
+    text-align: center;
+    margin: 0;
+
+}
+
+table{
+    margin: 0 auto;
+}
+
+tr th{
+    border: 1px solid gray;
+    padding: 6px 12px;
+}
