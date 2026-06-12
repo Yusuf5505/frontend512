@@ -5,7 +5,7 @@ email.addEventListener("input", function () {
     if (reg.test(email.value)) {
         email.style.border = '1px solid green';
         span.style.color="green"
-          span.textContent="Пароль под требования"
+          span.textContent="Пароль под подходить под требования"
         return true;
       
     } else {
