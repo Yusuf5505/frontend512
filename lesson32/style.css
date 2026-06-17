@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: silver;
+}
+
+.game-board{
+    display: grid;
+    grid-template-columns: repeat(4,100px);
+    gap: 10px;
+}
+
+.card{
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 8px;
+    box-sizing: 0 4px 8px 0 rgb(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card img{
+    max-width: 100%;
+    min-height: 100%;
+    display: none;
+}
+
+.card.flipper img{
+    display: block;
+}
+
+
