@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Нажмите на кнопку чтоб заполнить данные</h1>
+     <button id="btn">Заполнить данные</button>
+    <div id="modal">
+        <div class="modal-content">
+            <span class="close">&times</span>
+            <p class="p">Вы получите подробную консультанцию</p>
+            <form action="#">
+                <div class="form-group">
+                    <label for="name">имя</label><br>
+                    <input type="text" placeholder="Введите ваше имя" name="name" required id="name"><br>
+                    <span class="regp"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Электронная почта</label><br>
+                    <input type="email" placeholder="Введите вашу электронную почту" name="email" required id="email"><br>
+                     <span  class="regp"></span>
+                </div>
+                <div class="form-group">
+                    <label for="area">Ваш вопрос</label><br>
+                    <textarea name="area" id="area" rows="4"></textarea>
+                </div>
+                <div class="form-buttton">
+                   <button id="but">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div> 
+
+   
+    </div>
+    <script src="scropt.js"></script>
+</body>
+</html>
