@@ -1,4 +1,4 @@
-#modal {
+/* #modal {
             display: none;
             position: fixed;
             z-index: 1;
@@ -33,12 +33,12 @@
             text-decoration: none;
             cursor: pointer;
         } 
-
+ */
 
 /* body{
     padding: 20px;
 /* } */
-/* 
+
 .box{
     box-sizing: border-box;
     width: 400px;
@@ -78,4 +78,4 @@ button{
             padding: 100px 0;
             margin: 0 auto;
             width: 80%;
-        } */
+        }

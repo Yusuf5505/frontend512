@@ -78,20 +78,20 @@
 // let h = document.querySelector("h1").addEventListener("click", function() {
 //     h.style.color = "red";
 // });
- let modal=document.querySelector("#modal");
-document.querySelector("#btn").addEventListener("click",function(){
-    modal.style.display="block"
-})
+//  let modal=document.querySelector("#modal");
+// document.querySelector("#btn").addEventListener("click",function(){
+//     modal.style.display="block"
+// })
 
-document.querySelector(".close").addEventListener("click",function(){
-    modal.style.display="none"
-})
-window.addEventListener("click",function(event){
-    if (event.target==modal) {
-        
-    modal.style.display='none'
-    }
-}) 
+// document.querySelector(".close").addEventListener("click",function(){
+//     modal.style.display="none"
+// })
+// window.addEventListener("click",function(event){
+//     if (event.target==modal) {
+
+//     modal.style.display='none'
+//     }
+// }) 
 
 // let w=document.documentElement.clientWidth;
 // let h=document.documentElement.clientHeight;
@@ -100,7 +100,7 @@ window.addEventListener("click",function(event){
 
 // console.log('ширина окна',window.innerWidth);
 // console.log('высота окна',window.innerHeight);
-/* 
+
 let box = document.querySelector(".box");
 let width = box.scrollWidth;
 let height = box.scrollHeight;
@@ -117,18 +117,28 @@ document.querySelector("button").addEventListener("click", function () {
     //     flag = 1;
     // }
 
-    console.log(box.scrollTop);
+    // console.log(box.scrollTop);
+    /* console.log(box.getBoundingClientRect());
+    console.log(box.getBoundingClientRect().top);
+    console.log("offsetTop",box.offsetTop); */
     
-}) */
+    if (!flag) {
+        box.style.overflow='hidden'; 
+    }else{
+          box.style.overflow='';
+          
+    }
+   flag= !flag
+})
 
-window.addEventListener("scroll",myfunction);
+// window.addEventListener("scroll", myfunction);
 
-function myfunction(){
-    let winScroll=document.documentElement.scrollTop;
-    let heght=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+// function myfunction() {
+//     let winScroll = document.documentElement.scrollTop;
+//     let heght = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
-    let scroled=winScroll / heght*100;
+//     let scroled = winScroll / heght * 100;
 
-    document.querySelector("#myBar").style.width=scroled+"%"
-    document.querySelector("img").style.transform="translate("+(document.documentElement.clientWidth-94)*scroled /100+"px, 0px)"
-}
+//     document.querySelector("#myBar").style.width = scroled + "%"
+//     document.querySelector("img").style.transform = "translate(" + (document.documentElement.clientWidth - 94) * scroled / 100 + "px, 0px)"
+// }
