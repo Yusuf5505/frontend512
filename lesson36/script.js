@@ -114,7 +114,7 @@ const m= new Mail("test@mail.ru")
 m.sender="MyTest@mail.ru"
 document.writeln(m.sender);
  */
-/* 
+
 class Worker{
     constructor(name,surname,rate,days){
         this._name=name;
@@ -151,7 +151,7 @@ console.log(corker.rate);
 console.log(corker.days);
 console.log(corker.getSalary());
 
- */
+ 
 
 class Animal{
     constructor(name){
