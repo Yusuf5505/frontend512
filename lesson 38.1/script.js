@@ -269,7 +269,7 @@ class View {
         this.element = element;
         this.width = width;
         this.height = height;
-
+        this.dvScor=document.querySelector("#dc")
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.width;
         this.canvas.height = this.height;
@@ -285,7 +285,7 @@ class View {
 
         this.blockWidth = this.playfieldInnerWidth / columns;
         this.blockHeight = this.playfieldInnerHeight / rows;
-
+        
         this.panelX = this.playfieldWidth + 10;
         this.panelY = 0;
         this.panelWidth = this.width / 3;
@@ -293,7 +293,11 @@ class View {
 
         this.element.append(this.canvas);
     }
-
+    eatScreen(){
+        this.eats.forEach(()=>{
+            Math.floor(Math.random *this.eats.length)
+        })
+    }
     clearScrean() {
         this.context.clearRect(0, 0, this.width, this.height);
     }
