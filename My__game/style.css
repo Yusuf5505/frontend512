@@ -1,15 +1,74 @@
-canvas{
+canvas {
     margin: 0 auto;
     border: 4px solid;
 }
-#go{
+
+#go {
     font-size: 40px;
     text-align: center;
     display: none;
     padding-top: 10px;
 }
 
-#dc{
+#dc {
     font-size: 40px;
     text-align: center;
+    display: none;
+}
+
+#lev {
+    font-size: 40px;
+    text-align: center;
+    display: none;
+}
+
+.dv {
+    display: flex;
+    width: 100%;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#but {
+    color: rgb(112, 146, 120);
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: Medium;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0%;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 1px solid rgba(89, 141, 102, 1);
+    padding: 20px 100px;
+    transition: all;
+
+
+}
+
+#but:hover {
+    color: rgba(89, 141, 102, 1);
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: Medium;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0%;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 1px solid rgba(89, 141, 102, 1);
+    padding: 20px 100px;
+    background: greenyellow;
+    transition: all 0.8s;
+}
+a{
+   display: block;               /* ← Блочный элемент */
+    width: max-content; 
+    text-align: center;
+   margin: 0 auto;
+   font-size: 40px;
+ text-decoration: none;
+      
 }
