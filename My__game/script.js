@@ -3,6 +3,7 @@ but.addEventListener("click", function () {
     but.style.display = 'none';
     let dv = document.querySelector(".dv");
     dv.style.display = 'none';
+    
     class Game {
         constructor(width, height) {
             // 1. Базовые настройки
@@ -20,7 +21,9 @@ but.addEventListener("click", function () {
             this.level = document.querySelector("#lev");
             this.level.style.display = 'block';
 
-
+            // НАЧАЛЬНАЯ СКОРОСТЬ (интервал в мс)
+            this.baseSpeed = 200;
+            this.currentSpeed = 200;
 
             // 2. Массив еды (разные виды)
             this.eats = [
@@ -39,7 +42,6 @@ but.addEventListener("click", function () {
             document.body.append(this.canvas);
             this.canvas.style.display = 'block';
 
-
             // 4. Направления
             this.direction = 'up';
             this.nextDirection = 'up';
@@ -48,7 +50,6 @@ but.addEventListener("click", function () {
             this.shake = [
                 { x: 5, y: 5 },
                 { x: 5, y: 6 },
-                { x: 5, y: 7 }
             ]
 
             // 6. Игровое поле
@@ -63,9 +64,77 @@ but.addEventListener("click", function () {
             this.setupControls();
             this.startGame();
 
-            // 9. Фон
+            // 9. Создаем кнопку перезапуска (скрыта)
+            this.createRestartButton();
+
+            // 10. Фон
             this.ctx.fillStyle = 'black';
             this.ctx.fillRect(0, 0, this.width, this.height);
+        }
+
+        // НОВЫЙ МЕТОД: создаем кнопку перезапуска
+        createRestartButton() {
+            this.restartBtn = document.createElement("button");
+            this.restartBtn.textContent = "Играть снова";
+            this.restartBtn.style.display = 'none';
+            this.restartBtn.style.position = 'absolute';
+            this.restartBtn.style.top = '50%';
+            this.restartBtn.style.left = '50%';
+            this.restartBtn.style.transform = 'translate(-50%, -50%)';
+            this.restartBtn.style.padding = '20px 40px';
+            this.restartBtn.style.fontSize = '24px';
+            this.restartBtn.style.backgroundColor = '#4CAF50';
+            this.restartBtn.style.color = 'white';
+            this.restartBtn.style.border = 'none';
+            this.restartBtn.style.borderRadius = '10px';
+            this.restartBtn.style.cursor = 'pointer';
+            this.restartBtn.style.zIndex = '1000';
+            document.body.appendChild(this.restartBtn);
+
+            // Обработчик клика по кнопке
+            this.restartBtn.addEventListener("click", () => {
+                this.restartGame();
+            });
+        }
+
+        // НОВЫЙ МЕТОД: перезапуск игры
+        restartGame() {
+            // 1. Останавливаем старый игровой цикл
+            if (this.gameLoop) {
+                clearInterval(this.gameLoop);
+                this.gameLoop = null;
+            }
+
+            // 2. Сбрасываем все параметры
+            this.gameOver = false;
+            this.skore = 0;
+            this.currentSpeed = this.baseSpeed;
+            this.direction = 'up';
+            this.nextDirection = 'up';
+            
+            // 3. Сбрасываем змейку
+            this.shake = [
+                { x: 5, y: 5 },
+                { x: 5, y: 6 },
+            ];
+
+            // 4. Очищаем игровое поле
+            this.playfield = this.createPlaefield();
+
+            // 5. Удаляем старую еду и создаем новую
+            this.food = null;
+            this.generateFood();
+
+            // 6. Обновляем счет и уровень
+            this.dvScor.textContent = `Score: 0`;
+            this.level.textContent = `Уровень 1`;
+
+            // 7. Прячем сообщение Game Over и кнопку
+            this.divGo.style.display = 'none';
+            this.restartBtn.style.display = 'none';
+
+            // 8. Запускаем игру заново
+            this.startGame();
         }
 
         generateFood() {
@@ -81,11 +150,7 @@ but.addEventListener("click", function () {
             if (emptyCells.length > 0) {
                 const randomIndex = Math.floor(Math.random() * emptyCells.length);
                 const cell = emptyCells[randomIndex];
-
-                // ← ВЫБИРАЕМ СЛУЧАЙНЫЙ ТИП ЕДЫ
                 const foodType = Math.floor(Math.random() * this.eats.length);
-
-                // ← СОХРАНЯЕМ КООРДИНАТЫ И ТИП
                 this.food = {
                     x: cell.x,
                     y: cell.y,
@@ -106,6 +171,7 @@ but.addEventListener("click", function () {
         }
 
         setupControls() {
+            // Управление стрелками
             document.addEventListener("keydown", function (event) {
                 switch (event.which) {
                     case 37:
@@ -132,8 +198,51 @@ but.addEventListener("click", function () {
                         }
                         event.preventDefault();
                         break;
+                    // ★ НОВОЕ: Перезапуск по Enter ★
+                    case 13:
+                        if (this.gameOver) {
+                            this.restartGame();
+                            event.preventDefault();
+                        }
+                        break;
                 }
             }.bind(this));
+        }
+
+        updateSpeed() {
+            let newSpeed = this.baseSpeed;
+
+            if (this.skore >= 100 && this.skore < 300) {
+                newSpeed = 150;
+                this.level.textContent = `Уровень 2`;
+            } 
+            else if (this.skore >= 300 && this.skore < 500) {
+                newSpeed = 100;
+                this.level.textContent = `Уровень 3`;
+            } 
+            else if (this.skore >= 500 && this.skore < 700) {
+                newSpeed = 70;
+                this.level.textContent = `Уровень 4`;
+            }
+            else if (this.skore >= 700) {
+                newSpeed = 50;
+                this.level.textContent = `Уровень 5 (MAX)`;
+            }
+
+            if (newSpeed !== this.currentSpeed) {
+                this.currentSpeed = newSpeed;
+                this.restartGameLoop();
+            }
+        }
+
+        restartGameLoop() {
+            if (this.gameLoop) {
+                clearInterval(this.gameLoop);
+                this.gameLoop = setInterval(() => {
+                    this.update();
+                    this.draw();
+                }, this.currentSpeed);
+            }
         }
 
         update() {
@@ -141,11 +250,13 @@ but.addEventListener("click", function () {
 
             const head = this.shake[0];
             const newHead = { x: head.x, y: head.y };
+            
+            // Проверка столкновения с собой
             for (let i = 1; i < this.shake.length; i++) {
                 if (newHead.x === this.shake[i].x && newHead.y === this.shake[i].y) {
-                    // Голова наехала на тело → GAME OVER!
                     this.gameOver = true;
                     this.divGo.style.display = 'block';
+                    this.restartBtn.style.display = 'block'; // ★ ПОКАЗЫВАЕМ КНОПКУ ★
                     clearInterval(this.gameLoop);
                     return;
                 }
@@ -163,29 +274,21 @@ but.addEventListener("click", function () {
                 newHead.y < 0 || newHead.y >= this.rows) {
                 this.gameOver = true;
                 this.divGo.style.display = 'block';
+                this.restartBtn.style.display = 'block'; // ★ ПОКАЗЫВАЕМ КНОПКУ ★
                 clearInterval(this.gameLoop);
                 return;
             }
 
-            // Добавляем голову
             this.shake.unshift(newHead);
 
             // Проверка еды
             if (this.food && newHead.x === this.food.x && newHead.y === this.food.y) {
-                // ← БЕРЕМ ОЧКИ ИЗ МАССИВА
                 const foodType = this.eats[this.food.type];
                 this.skore += foodType.points;
                 this.dvScor.textContent = `Score: ${this.skore}`;
-                if (this.skore >= 100 && this.skore < 300) {
-                    this.level.textContent = `Уровень 2`;
-                } else if (this.skore >= 300 && this.skore < 500) {
-                    this.level.textContent = `Уровень 3`;
-                } else if (this.skore >= 500) {
-                    this.level.textContent = `Уровень 4`;
-                }
+                this.updateSpeed();
                 this.food = null;
                 this.generateFood();
-                // НЕ удаляем хвост - змейка растет
             } else {
                 this.shake.pop();
             }
@@ -195,7 +298,7 @@ but.addEventListener("click", function () {
             this.gameLoop = setInterval(() => {
                 this.update();
                 this.draw();
-            }, 200);
+            }, this.currentSpeed);
         }
 
         draw() {
@@ -203,19 +306,16 @@ but.addEventListener("click", function () {
             this.ctx.fillStyle = 'black';
             this.ctx.fillRect(0, 0, this.width, this.height);
 
-            // Очищаем playfield
             for (let y = 0; y < this.playfield.length; y++) {
                 for (let x = 0; x < this.playfield[y].length; x++) {
                     this.playfield[y][x] = 0;
                 }
             }
 
-            // Заполняем playfield змейкой
             this.shake.forEach(item => {
                 this.playfield[item.y][item.x] = 1;
             });
 
-            // ← РИСУЕМ ЕДУ С УЧЕТОМ ТИПА
             if (this.food) {
                 const foodType = this.eats[this.food.type];
                 const size = foodType.size || 1;
@@ -223,7 +323,6 @@ but.addEventListener("click", function () {
                 const offsetX = (this.cellSize - blockSize) / 2;
                 const offsetY = (this.cellSize - blockSize) / 2;
 
-                // Цвет из массива
                 this.ctx.fillStyle = foodType.color;
                 this.ctx.fillRect(
                     this.food.x * this.cellSize + offsetX,
@@ -232,7 +331,6 @@ but.addEventListener("click", function () {
                     blockSize
                 );
 
-                // Белая рамка
                 this.ctx.strokeStyle = 'white';
                 this.ctx.lineWidth = 1;
                 this.ctx.strokeRect(
@@ -242,7 +340,6 @@ but.addEventListener("click", function () {
                     blockSize
                 );
 
-                // Показываем очки на еде
                 this.ctx.fillStyle = 'white';
                 this.ctx.font = '10px Arial';
                 this.ctx.textAlign = 'center';
@@ -254,11 +351,9 @@ but.addEventListener("click", function () {
                 );
             }
 
-            // Рисуем змейку
             for (let y = 0; y < this.playfield.length; y++) {
                 for (let x = 0; x < this.playfield[y].length; x++) {
                     if (this.playfield[y][x] === 1) {
-                        // Голова ярче
                         const isHead = (y === this.shake[0].y && x === this.shake[0].x);
                         this.ctx.fillStyle = isHead ? '#00ff00' : '#008800';
                         this.ctx.fillRect(
@@ -271,7 +366,6 @@ but.addEventListener("click", function () {
                 }
             }
 
-            // Отображаем счет на canvas
             this.ctx.fillStyle = 'white';
             this.ctx.font = '16px Arial';
             this.ctx.textAlign = 'left';
@@ -282,6 +376,4 @@ but.addEventListener("click", function () {
 
     const game = new Game(480, 640);
     game.draw();
-}
-
-)
+})

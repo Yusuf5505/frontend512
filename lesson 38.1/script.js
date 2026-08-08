@@ -7,13 +7,21 @@ class Game {
         "4": 1200
     };
 
-    score = 0;
-    lines = 0;
+    constructor() {
+        this.reset();
+    }
 
-    playfield = this.createPlayfield();
+    reset() {
+        this.score = 0;
+        this.lines = 0;
 
-    activePiece = this.createPiece();
-    nextPiece = this.createPiece();
+        this.topOut = false;
+
+        this.playfield = this.createPlayfield();
+
+        this.activePiece = this.createPiece();
+        this.nextPiece = this.createPiece();
+    }
 
     getLevel() {
         // return Math.ceil(this.lines * 0.1);
@@ -45,7 +53,8 @@ class Game {
             level: this.getLevel(),
             lines: this.lines,
             nextPiece: this.nextPiece,
-            playfield
+            playfield,
+            isGameOver: this.topOut
         }
     }
 
@@ -66,6 +75,10 @@ class Game {
     }
 
     moveIsDown() {
+        if (this.topOut) {
+            return;
+        }
+
         this.activePiece.y++;
 
         if (this.hasCollision()) {
@@ -74,6 +87,9 @@ class Game {
             const clearLines = this.clearLines();
             this.updateScore(clearLines);
             this.updatePieces();
+        }
+        if (this.hasCollision()) {
+            this.topOut = true;  
         }
     }
 
@@ -269,7 +285,7 @@ class View {
         this.element = element;
         this.width = width;
         this.height = height;
-        this.dvScor=document.querySelector("#dc")
+
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.width;
         this.canvas.height = this.height;
@@ -285,7 +301,7 @@ class View {
 
         this.blockWidth = this.playfieldInnerWidth / columns;
         this.blockHeight = this.playfieldInnerHeight / rows;
-        
+
         this.panelX = this.playfieldWidth + 10;
         this.panelY = 0;
         this.panelWidth = this.width / 3;
@@ -293,11 +309,7 @@ class View {
 
         this.element.append(this.canvas);
     }
-    eatScreen(){
-        this.eats.forEach(()=>{
-            Math.floor(Math.random *this.eats.length)
-        })
-    }
+
     clearScrean() {
         this.context.clearRect(0, 0, this.width, this.height);
     }
@@ -400,73 +412,172 @@ class View {
     }
 }
 
+class Controller {
+    constructor(game, view) {
+        this.game = game;
+        this.view = view;
+        this.intervalId = null;
+        this.isPlaying = false;
+
+        // setInterval(() => {
+        //     this.update();
+        // }, 1000);
+
+        document.addEventListener("keydown", this.handleKeyDown.bind(this));
+        this.view.renderStartScreen();
+    }
+
+    play() {
+        this.isPlaying = true;
+        this.startTimer();
+        this.updateView();
+    }
+
+    pause() {
+        this.isPlaying = false;
+        this.stopTimer();
+        this.updateView();
+    }
+
+    reset(){
+        this.game.reset();
+        this.play();
+    }
+
+    updateView() {
+        const state = this.game.getState();
+
+        if (state.isGameOver) {
+            this.view.renderEndScreen(state);
+        } else if (!this.isPlaying) {
+            this.view.renderPauseScreen();
+        } else {
+            this.view.render(state);
+        }
+    }
+
+    startTimer() {
+        const speed = 1000 - this.game.getState().level * 100;
+
+        if (!this.intervalId) {
+            this.intervalId = setInterval(() => {
+                this.update();
+            }, speed > 0 ? speed : 100);
+        }
+    }
+
+    stopTimer() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+    }
+
+    update() {
+        this.game.moveIsDown();
+        this.updateView();
+    }
+
+    handleKeyDown(event) {
+        const state = this.game.getState();
+        switch (event.which) {  // keyCode
+            case 13:
+                if(state.isGameOver){
+                    this.reset();
+                } else if (this.isPlaying) {
+                    this.pause();
+                } else {
+                    this.play();
+                }
+                break;
+            case 37:
+                this.game.moveIsLeft();
+                this.updateView();
+                break;
+            case 38:
+                this.game.rotationPiece();
+                this.updateView();
+                break;
+            case 39:
+                this.game.moveIsRight();
+                this.updateView();
+                break;
+            case 40:
+                this.game.moveIsDown();
+                this.updateView();
+                break;
+        }
+    }
+}
+
 const game = new Game();
 const root = document.querySelector("#root");
 const view = new View(root, 480, 640, 20, 10);
+const controller = new Controller(game, view);
 // view.renderPlayfield(game.playfield);
 // console.log(game.playfield);
 
-document.addEventListener("keydown", event => {
-    switch (event.which) {  // keyCode
-        case 13:
-            view.render(game.getState());
-        case 37:
-            game.moveIsLeft();
-            view.render(game.getState());
-            break;
-        case 38:
-            game.rotationPiece();
-            view.render(game.getState());
-            break;
-        case 39:
-            game.moveIsRight();
-            view.render(game.getState());
-            break;
-        case 40:
-            game.moveIsDown();
-            view.render(game.getState());
-            break;
-    }
+// document.addEventListener("keydown", event => {
+// switch (event.which) {  // keyCode
+//     case 13:
+//         view.render(game.getState());
+//     case 37:
+//         game.moveIsLeft();
+//         view.render(game.getState());
+//         break;
+//     case 38:
+//         game.rotationPiece();
+//         view.render(game.getState());
+//         break;
+//     case 39:
+//         game.moveIsRight();
+//         view.render(game.getState());
+//         break;
+//     case 40:
+//         game.moveIsDown();
+//         view.render(game.getState());
+//         break;
+// }
 
-    // switch (event.key) {  // keyCode
-    //     case "ArrowLeft":
-    //         game.moveIsLeft();
-    //         view.render(game.getState());
-    //         break;
-    //     case "ArrowUp":
-    //         game.rotationPiece();
-    //         view.render(game.getState());
-    //         break;
-    //     case "ArrowRight":
-    //         game.moveIsRight();
-    //         view.render(game.getState());
-    //         break;
-    //     case "ArrowDown":
-    //         game.moveIsDown();
-    //         view.render(game.getState());
-    //         break;
-    // }
+// switch (event.key) {  // keyCode
+//     case "ArrowLeft":
+//         game.moveIsLeft();
+//         view.render(game.getState());
+//         break;
+//     case "ArrowUp":
+//         game.rotationPiece();
+//         view.render(game.getState());
+//         break;
+//     case "ArrowRight":
+//         game.moveIsRight();
+//         view.render(game.getState());
+//         break;
+//     case "ArrowDown":
+//         game.moveIsDown();
+//         view.render(game.getState());
+//         break;
+// }
 
 
-    //  switch (event.code) {  // keyCode
-    //     case "ArrowLeft":
-    //         game.moveIsLeft();
-    //         view.render(game.getState());
-    //         break;
-    //     case "ArrowUp":
-    //         game.rotationPiece();
-    //         view.render(game.getState());
-    //         break;
-    //     case "ArrowRight":
-    //         game.moveIsRight();
-    //         view.render(game.getState());
-    //         break;
-    //     case "ArrowDown":
-    //         game.moveIsDown();
-    //         view.render(game.getState());
-    //         break;
-    // }
-})
+//  switch (event.code) {  // keyCode
+//     case "ArrowLeft":
+//         game.moveIsLeft();
+//         view.render(game.getState());
+//         break;
+//     case "ArrowUp":
+//         game.rotationPiece();
+//         view.render(game.getState());
+//         break;
+//     case "ArrowRight":
+//         game.moveIsRight();
+//         view.render(game.getState());
+//         break;
+//     case "ArrowDown":
+//         game.moveIsDown();
+//         view.render(game.getState());
+//         break;
+// }
+// })
 
-view.render(game.getState());
+// view.render(game.getState());
 // view.renderEndScreen(game.getState());

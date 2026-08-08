@@ -1,6 +1,7 @@
 canvas {
     margin: 0 auto;
     border: 4px solid;
+  
 }
 
 #go {
@@ -71,4 +72,9 @@ a{
    font-size: 40px;
  text-decoration: none;
       
+}
+
+body{
+    background: url("i.jfif"); 
+     background-size: cover;
 }
