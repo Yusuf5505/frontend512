@@ -15,3 +15,6 @@ if (shoping >= 1000) {
     alert("Товаров на такую цену не имеем")
 } */
 
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1000);
+}
