@@ -1,13 +1,13 @@
-// let obj={
-//     name: "Yusuf",
-//     age:30
-// }
-// let map=new Map(Object.entries(obj));
-// document.writeln(map.get("name"));
-// console.log(map);
+/* let obj={
+    name: "Yusuf",
+    age:19
+}
+let map=new Map(Object.entries(obj));
+document.writeln(map.get("name"));
+console.log(map);
 
-// let obj1 =Object.fromEntries(map);
-// console.log(obj);
+ let obj1 =Object.fromEntries(map);
+console.log(obj); */
 /* 
 const myObj={};
 let start1=new Date().getTime();
@@ -44,7 +44,7 @@ console.log(mas);
 let mas1=[...new Set(mas)];
 console.log(mas1);
  */
-/* 
+/*
 class VisitTracker{
     constructor(){
         this.visitors=new Set();
@@ -76,16 +76,29 @@ tracker.registerVisit("user_2");
 console.log("Всего визитов: "+tracker.totalVisits);
 console.log("Уникальных поситителей: "+tracker.getUniqueCount());
 console.log("Процент новых: "+tracker.getUniquePersent()+"%");
- */
+  */
 
-const one=new Set(["first","second","third","fourth"]);
-const two= new Set(["second","fifth","fourth","sixth"]);
+// let mas=[5,9,2];
+// let set=new Set(mas);
+// console.log(set);
+// let mas1=[...set];
+// console.log(mas1);
+
+// let mas=[5,9,2,5,9];
+// console.log(mas);
+// let mas1=[...new Set(mas)];
+// console.log(mas1);
+
+const one= new Set(['first',"seconds","third","fourth"]);
+let two=new Set(['seconds','fifth','fourth','sixth']);
+
 
 const uni=one.union(two);
 console.log([...uni]);
 
 const both=one.intersection(two);
-console.log([...both]);
+console.log(both);
+
 const onlyOne=one.difference(two);
-console.log(onlyOne);
+console.log([...onlyOne]);
 
