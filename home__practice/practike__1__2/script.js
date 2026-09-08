@@ -58,11 +58,84 @@ console.log(arr2);
 console.log(arr3);
  */
 
-let s="Привет";
-for(let i of s.length){
-    let a=s.length (-1)
-    console.log(a);
-    
+// let s="Привет";
+// for(let i of s.length){
+//     let a=s.length (-1)
+//     console.log(a);
 
-}
+
+// }
+
+// console.log(0);
+// setTimeout(function(){console.log(1);
+// },1000);
+// setTimeout(function(){
+//   console.log(2);
+
+// },0);
+// console.log(3);
+
+/* const call={
+  caller:"Mom",
+  says:function(){
+    console.log(`Hey, ${this.caller} just called`);
+    
+  },
+};
+call.says()
+ */
+
+// alert("1"[0]);
+
+// function func(a) {
+//   let b = a + a;
+//   return b + a;
+// }
+
+// console.log(func(5));
+
+// function ch() {
+//   j=3
+// }
+// let j=2;
+// ch();
+// alert(j)
+
+// let a='5';
+// let b=5;
+// let c=a===b;
+// let d=a==b;
+// let e=a=b;
+
+// let a=5;
+// let A=10;
+// alert(a)
+// let a=[0,1,2];
+// a[10]=10;
+// console.log(a.length);
+
+// const object={
+//   message:"Hello, world",
+//   getMessage(){
+//     const message='Hello Earth';
+//     return message
+//   },
+// }
+// console.log(object.getMessage());
+
+// let x=1.45+1.05;
+// console.log(x);
+/* 
+let x=5;
+function func(x) {
+  return x*3;
+  x++
+}x=func(x)
+alert(x)
+ */
+
+// function f(a,b) {
+//   alert(a+b)
+// }
+// f(3,4,2)
 
