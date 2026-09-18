@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Domine:wght@400..700&display=swap');
+
+.content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Domine', serif;
+    font-size: 20px;
+    line-height: 1.7;
+    color: #2b2b2b;
+}
+
+.content p {
+    font-family: 'Domine', serif;
+    margin-bottom: 1em;
+}
+
+.content h1,
+.content h2,
+.content h3 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    color: #c14b7d;
+    margin-bottom: 0.5em;
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.bold {
+    font-weight: bolder;
+}

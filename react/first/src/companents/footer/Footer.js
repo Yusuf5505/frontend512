@@ -1,10 +1,13 @@
 import React from "react";
 
 class Footer extends React.Component {
+    constructor(props){
+        super(props)
+    }
     render(){
         return(
     <footer style={{background:"red",padding:10,fontWeight:"bold"}}>
-        <p>Copyright</p>
+        <p>{this.props.text}</p>
       </footer>
    ) 
     }

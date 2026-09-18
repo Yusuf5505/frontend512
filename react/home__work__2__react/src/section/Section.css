@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Domine:wght@400..700&family=Playwrite+CU+Guides&family=Qwitcher+Grypen:wght@400;700&display=swap');
+
+.content h3 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    color: #c14b7d;
+    margin-bottom: 0.5em;
+}
+.content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Domine', serif;
+    font-size: 20px;
+    line-height: 1.7;
+    color: #2b2b2b;
+    
+}
+.content p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;  
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+
+.bold {
+    font-weight: bolder;
+}

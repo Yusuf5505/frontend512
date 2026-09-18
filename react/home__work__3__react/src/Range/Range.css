@@ -1,0 +1,22 @@
+.range-wrapper {
+  display: flex;
+  flex-direction: column;   /* элементы идут сверху вниз */
+  align-items: center;      /* центрируем по горизонтали */
+  gap: 16px;                /* одинаковый отступ между всеми элементами */
+  padding: 40px 0;
+}
+
+.range-wrapper p {
+  margin: 0;                /* убираем дефолтные отступы <p> */
+  font-family: monospace;   /* чтобы цифры не «прыгали» при изменении */
+}
+
+.range {
+  width: 260px;
+  cursor: pointer;
+}
+
+.square {
+  transition: width 0.05s, height 0.05s;  /* плавное изменение */
+  border-radius: 4px;                      /* по желанию */
+}
