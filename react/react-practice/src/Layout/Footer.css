@@ -1,0 +1,10 @@
+.footer{
+    text-align: center;
+    background: rgb(18, 106, 135);
+    padding: 10px 0;
+    box-sizing: border-box;
+    font-weight: bold;
+    
+    min-height: calc(100vh -41px);
+
+}
