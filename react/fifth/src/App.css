@@ -1,0 +1,19 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(32, 224, 15);
+}
+
+.main{
+  width: 420px;
+  margin-top: 200px;
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px 6px #015881;
+}

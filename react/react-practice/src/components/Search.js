@@ -22,7 +22,9 @@ class Search extends React.Component {
         });
     }
     nextPage = () => {
-        this.setState({ page: this.state.page + 1 }, () => {
+        let total=Math .ceil(this.props.totalCount /1);
+        this.setState(
+           this.state.page ===total ?{page:total}: { page: this.state.page + 1 }, () => {
             this.props.searchMove(this.state.search, this.state.type, this.state.page);
         })
     }
@@ -41,9 +43,11 @@ class Search extends React.Component {
 
     render() {
         let limit = 10;
-        let totalPage = Math.ceil(this.props.totalCount / limit)
+        let totalPage = Math.ceil(this.props.totalCount / limit);
+        let lastIndex=totalPage<=10?totalPage:this.state.page+ limit -1;
+        let firstIndex=totalPage<=10?lastIndex-limit+ lastIndex -2:lastIndex-limit;
         let num = [];
-        for (let i = 1; i <= totalPage; i++) {
+        for (let i = 0; i <= totalPage; i++) {
             num.push(i)
         }
 
@@ -113,11 +117,11 @@ class Search extends React.Component {
                     <button className="btn" onClick={this.prevPage} style={{ opacity: this.state.page === 1 ? ".5" : "1" }}>Prev</button>
 
                     <div className="items">
-                        {num.map((el) => {
-                            if (el > 10) return null;
-                             
+                        {num
+                        .slice(firstIndex,lastIndex)
+                        .map((el) => {
                          
-
+                        
                             return (
                                 <button
                                     key={el}
@@ -131,7 +135,7 @@ class Search extends React.Component {
                         })}
                     </div>
 
-                    <button className="btn" onClick={this.nextPage}>Next</button>
+                    <button className="btn" onClick={this.nextPage} style={{opacity:this.state.page===totalPage ?".5":"1"}}>Next</button>
                 </div>
             </>
         );

@@ -36,27 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-/* убрать дефолтные отступы */
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-/* обёртка всего приложения */
-.app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* header и footer — по своему размеру */
-.app > header,
-.app > footer {
-    flex-shrink: 0;
-}
-
-/* main растягивается на свободное место */
-.main {
-    flex: 1 0 auto;
-}

@@ -1,0 +1,12 @@
+.quiz ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 40px;
+}
+.quiz li{
+    margin: 20px 0;
+    box-shadow: 0 0 4px 1px #015881;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
