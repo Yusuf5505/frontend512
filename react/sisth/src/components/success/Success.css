@@ -1,0 +1,14 @@
+.success-block{
+    text-align: center;
+    background: #FFF;
+    margin-top: 50px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 2px #c1c1c1;
+    width: 400px;
+}
+
+.success-block h3{
+    font-size: 30px;
+    margin-bottom: 20px;
+}

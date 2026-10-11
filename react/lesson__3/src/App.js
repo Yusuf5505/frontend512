@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './App.css';
-import Task from './Task';
-import Form from './Form';
+// import Task from './Task';
+// import Form from './Form';
+import Counter from './Counter';
 
 function App() {
+  let [isCounter,setCounter]=useState(true);
   const [tasks, setTasks] = useState([
     { id: 1, text: "Выучить JavaScript", done: false },
     { id: 2, text: "Познакомиться с React", done: false },
@@ -32,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="task-list">
+      {/* <div className="task-list">
         {tasks.map((task, index) => (
           <Task
             key={task.id}
@@ -43,7 +45,9 @@ function App() {
           />
         ))}
         <Form addTask={addTask} />
-      </div>
+      </div> */}
+      <button onClick={() =>setCounter(!isCounter)}>Togal counter</button>
+    {isCounter &&  <Counter />}
     </div>
   );
 }

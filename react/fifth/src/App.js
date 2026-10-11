@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Quizzis from './components/Quizzis';
+import Result from './components/result/Result';
 const questions = [
   {
     title: 'В каком месте HTML документа может располагаться JavaScript код?',
@@ -52,10 +53,15 @@ function App() {
   const [correct,setCorrect]=useState(0);
   return (
     <div className="main">
-      <Quizzis question={question}  onClickVariant={ onClickVariant}
+      {
+        step !== questions.length ?<Quizzis question={question}  onClickVariant={ onClickVariant}
       questions={questions}
-      step={step}/>
+      step={step}/>:<Result correct={correct} questions={questions}/>
+      }
+      
+     
     </div>
+   
   );
 }
 
